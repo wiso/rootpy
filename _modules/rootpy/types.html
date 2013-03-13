@@ -1,0 +1,1011 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+
+    <title>rootpy.types &mdash; rootpy dev documentation</title>
+
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+
+
+    
+    <link rel="stylesheet" href="../../_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/searchtools.js"></script>
+    <link rel="top" title="rootpy dev documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">rootpy dev documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for rootpy.types</h1><div class="highlight"><pre>
+<span class="c"># Copyright 2012 the rootpy developers</span>
+<span class="c"># distributed under the terms of the GNU General Public License</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Wrappers for basic types that are compatible with ROOT TTrees</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">register</span>
+
+
+<div class="viewcode-block" id="Column"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Column.html#rootpy.types.Column">[docs]</a><span class="k">class</span> <span class="nc">Column</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">arg_params</span> <span class="o">=</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">])</span>
+        <span class="n">kwd_params</span> <span class="o">=</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">arg_params</span><span class="p">:</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg_params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kwd_params</span><span class="p">:</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwd_params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">(</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ObjectCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.ObjectCol.html#rootpy.types.ObjectCol">[docs]</a><span class="k">class</span> <span class="nc">ObjectCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">cls</span>
+        <span class="n">Column</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="Variable"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Variable.html#rootpy.types.Variable">[docs]</a><span class="k">class</span> <span class="nc">Variable</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is the base class for all variables&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resetable</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+        <span class="n">array</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resetable</span> <span class="o">=</span> <span class="n">resetable</span>
+
+<div class="viewcode-block" id="Variable.reset"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Variable.html#rootpy.types.Variable.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reset the value to the default&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resetable</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span>
+</div>
+<div class="viewcode-block" id="Variable.clear"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Variable.html#rootpy.types.Variable.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Supplied to match the interface of ROOT.vector&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Variable.value"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Variable.html#rootpy.types.Variable.value">[docs]</a>    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The current value&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Variable.set"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Variable.html#rootpy.types.Variable.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the value&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__repr__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">(</span><span class="si">%s</span><span class="s">) at </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__hex__</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">array</span><span class="o">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="n">array</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">array</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__nonzero__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">other</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">*</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__rdiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">other</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+
+</div>
+<div class="viewcode-block" id="VariableArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.VariableArray.html#rootpy.types.VariableArray">[docs]</a><span class="k">class</span> <span class="nc">VariableArray</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is the base class for all array variables&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resetable</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+        <span class="n">array</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resetable</span> <span class="o">=</span> <span class="n">resetable</span>
+
+<div class="viewcode-block" id="VariableArray.reset"><a class="viewcode-back" href="../../modules/generated/rootpy.types.VariableArray.html#rootpy.types.VariableArray.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reset the value to the default&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resetable</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span>
+</div>
+<div class="viewcode-block" id="VariableArray.clear"><a class="viewcode-back" href="../../modules/generated/rootpy.types.VariableArray.html#rootpy.types.VariableArray.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Supplied to match the interface of ROOT.vector&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</div>
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">thing</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">thing</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__repr__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">[</span><span class="si">%s</span><span class="s">] at </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+             <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">)),</span>
+             <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__hex__</span><span class="p">())</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;Bool_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Bool"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Bool.html#rootpy.types.Bool">[docs]</a><span class="k">class</span> <span class="nc">Bool</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing a Boolean type</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the Boolean type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;O&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Bool_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Bool</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Bool</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="BoolCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.BoolCol.html#rootpy.types.BoolCol">[docs]</a><span class="k">class</span> <span class="nc">BoolCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Bool</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;B[]&#39;</span><span class="p">,</span> <span class="s">&#39;Bool_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="BoolArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.BoolArray.html#rootpy.types.BoolArray">[docs]</a><span class="k">class</span> <span class="nc">BoolArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of Booleans</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the Boolean type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;O&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Bool_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Bool</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Bool</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="BoolArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.BoolArrayCol.html#rootpy.types.BoolArrayCol">[docs]</a><span class="k">class</span> <span class="nc">BoolArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">BoolArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;Char_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Char"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Char.html#rootpy.types.Char">[docs]</a><span class="k">class</span> <span class="nc">Char</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing a character type</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the char type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;C&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Char_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00</span><span class="s">&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Char</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Char</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+</div>
+<div class="viewcode-block" id="CharCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.CharCol.html#rootpy.types.CharCol">[docs]</a><span class="k">class</span> <span class="nc">CharCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Char</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;C[]&#39;</span><span class="p">,</span> <span class="s">&#39;Char_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="CharArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.CharArray.html#rootpy.types.CharArray">[docs]</a><span class="k">class</span> <span class="nc">CharArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of characters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the char type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;C&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Char_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00</span><span class="s">&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Char</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Char</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="CharArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.CharArrayCol.html#rootpy.types.CharArrayCol">[docs]</a><span class="k">class</span> <span class="nc">CharArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">CharArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;UC&#39;</span><span class="p">,</span> <span class="s">&#39;UChar_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="UChar"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UChar.html#rootpy.types.UChar">[docs]</a><span class="k">class</span> <span class="nc">UChar</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing an unsigned character type</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the unsigned char type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;c&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;UChar_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00</span><span class="s">&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">UChar</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">UChar</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+</div>
+<div class="viewcode-block" id="UCharCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UCharCol.html#rootpy.types.UCharCol">[docs]</a><span class="k">class</span> <span class="nc">UCharCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">UChar</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;UC[]&#39;</span><span class="p">,</span> <span class="s">&#39;UChar_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="UCharArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UCharArray.html#rootpy.types.UCharArray">[docs]</a><span class="k">class</span> <span class="nc">UCharArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of unsigned characters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the unsigned char type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;c&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;UChar_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00</span><span class="s">&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">UChar</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">UChar</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="UCharArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UCharArrayCol.html#rootpy.types.UCharArrayCol">[docs]</a><span class="k">class</span> <span class="nc">UCharArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">UCharArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;S&#39;</span><span class="p">,</span> <span class="s">&#39;Short_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Short"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Short.html#rootpy.types.Short">[docs]</a><span class="k">class</span> <span class="nc">Short</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing an integer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the short type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;S&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Short_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;h&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Short</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Short</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ShortCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.ShortCol.html#rootpy.types.ShortCol">[docs]</a><span class="k">class</span> <span class="nc">ShortCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Short</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;S[]&#39;</span><span class="p">,</span> <span class="s">&#39;Short_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="ShortArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.ShortArray.html#rootpy.types.ShortArray">[docs]</a><span class="k">class</span> <span class="nc">ShortArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of integers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the short type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;S&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Short_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;h&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Short</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Short</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ShortArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.ShortArrayCol.html#rootpy.types.ShortArrayCol">[docs]</a><span class="k">class</span> <span class="nc">ShortArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">ShortArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;US&#39;</span><span class="p">,</span> <span class="s">&#39;UShort_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="UShort"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UShort.html#rootpy.types.UShort">[docs]</a><span class="k">class</span> <span class="nc">UShort</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing a short</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the unsigned short type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;s&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;UShort_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;H&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">UShort</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">UShort</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s">&quot;Assigning negative value (</span><span class="si">%i</span><span class="s">) to unsigned type&quot;</span> <span class="o">%</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="UShortCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UShortCol.html#rootpy.types.UShortCol">[docs]</a><span class="k">class</span> <span class="nc">UShortCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">UShort</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;US[]&#39;</span><span class="p">,</span> <span class="s">&#39;UShort_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="UShortArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UShortArray.html#rootpy.types.UShortArray">[docs]</a><span class="k">class</span> <span class="nc">UShortArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of unsigned shorts</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the unsigned short type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;s&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;UShort_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;H&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">UShort</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">UShort</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="UShortArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UShortArrayCol.html#rootpy.types.UShortArrayCol">[docs]</a><span class="k">class</span> <span class="nc">UShortArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">UShortArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;I&#39;</span><span class="p">,</span> <span class="s">&#39;Int_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Int"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Int.html#rootpy.types.Int">[docs]</a><span class="k">class</span> <span class="nc">Int</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing an integer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the integer type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;I&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Int_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Int</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Int</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="IntCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.IntCol.html#rootpy.types.IntCol">[docs]</a><span class="k">class</span> <span class="nc">IntCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Int</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;I[]&#39;</span><span class="p">,</span> <span class="s">&#39;Int_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="IntArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.IntArray.html#rootpy.types.IntArray">[docs]</a><span class="k">class</span> <span class="nc">IntArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of integers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the integer type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;I&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Int_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;i&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Int</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Int</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="IntArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.IntArrayCol.html#rootpy.types.IntArrayCol">[docs]</a><span class="k">class</span> <span class="nc">IntArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">IntArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;UI&#39;</span><span class="p">,</span> <span class="s">&#39;UInt_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="UInt"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UInt.html#rootpy.types.UInt">[docs]</a><span class="k">class</span> <span class="nc">UInt</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing an unsigned integer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the unsigned integer type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;i&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;UInt_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;I&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">UInt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">UInt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s">&quot;Assigning negative value (</span><span class="si">%i</span><span class="s">) to unsigned type&quot;</span> <span class="o">%</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">long</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="UIntCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UIntCol.html#rootpy.types.UIntCol">[docs]</a><span class="k">class</span> <span class="nc">UIntCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">UInt</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;UI[]&#39;</span><span class="p">,</span> <span class="s">&#39;UInt_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="UIntArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UIntArray.html#rootpy.types.UIntArray">[docs]</a><span class="k">class</span> <span class="nc">UIntArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of unsigned integers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the unsigned integer type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;i&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;UInt_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;I&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">UInt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">UInt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="UIntArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.UIntArrayCol.html#rootpy.types.UIntArrayCol">[docs]</a><span class="k">class</span> <span class="nc">UIntArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">UIntArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="s">&#39;Long64_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Long"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Long.html#rootpy.types.Long">[docs]</a><span class="k">class</span> <span class="nc">Long</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing a long</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the long type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;L&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Long64_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;l&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Long</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">long</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="LongCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.LongCol.html#rootpy.types.LongCol">[docs]</a><span class="k">class</span> <span class="nc">LongCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Long</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;L[]&#39;</span><span class="p">,</span> <span class="s">&#39;Long64_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="LongArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.LongArray.html#rootpy.types.LongArray">[docs]</a><span class="k">class</span> <span class="nc">LongArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of longs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the long type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;L&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Long64_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;l&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Long</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="LongArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.LongArrayCol.html#rootpy.types.LongArrayCol">[docs]</a><span class="k">class</span> <span class="nc">LongArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">LongArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;UL&#39;</span><span class="p">,</span> <span class="s">&#39;ULong64_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="ULong"><a class="viewcode-back" href="../../modules/generated/rootpy.types.ULong.html#rootpy.types.ULong">[docs]</a><span class="k">class</span> <span class="nc">ULong</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing an unsigned long</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the long type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;l&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;ULong64_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">ULong</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">ULong</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s">&quot;Assigning negative value (</span><span class="si">%i</span><span class="s">) to unsigned type&quot;</span> <span class="o">%</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">long</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ULongCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.ULongCol.html#rootpy.types.ULongCol">[docs]</a><span class="k">class</span> <span class="nc">ULongCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">ULong</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;UL[]&#39;</span><span class="p">,</span> <span class="s">&#39;ULong64_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="ULongArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.ULongArray.html#rootpy.types.ULongArray">[docs]</a><span class="k">class</span> <span class="nc">ULongArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is of unsigned longs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the long type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;l&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;ULong64_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;L&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">ULong</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">ULong</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ULongArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.ULongArrayCol.html#rootpy.types.ULongArrayCol">[docs]</a><span class="k">class</span> <span class="nc">ULongArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">ULongArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;F&#39;</span><span class="p">,</span> <span class="s">&#39;Float_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Float"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Float.html#rootpy.types.Float">[docs]</a><span class="k">class</span> <span class="nc">Float</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing a float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the float type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;F&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Float_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;f&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Float</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Float</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="FloatCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.FloatCol.html#rootpy.types.FloatCol">[docs]</a><span class="k">class</span> <span class="nc">FloatCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Float</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;F[]&#39;</span><span class="p">,</span> <span class="s">&#39;Float_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="FloatArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.FloatArray.html#rootpy.types.FloatArray">[docs]</a><span class="k">class</span> <span class="nc">FloatArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of floats</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the float type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;F&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Float_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;f&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Float</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Float</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="FloatArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.FloatArrayCol.html#rootpy.types.FloatArrayCol">[docs]</a><span class="k">class</span> <span class="nc">FloatArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">FloatArray</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="s">&#39;Double_t&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Double"><a class="viewcode-back" href="../../modules/generated/rootpy.types.Double.html#rootpy.types.Double">[docs]</a><span class="k">class</span> <span class="nc">Double</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a variable containing a double</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the double type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;D&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Double_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">Variable</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Double</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">Variable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="DoubleCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.DoubleCol.html#rootpy.types.DoubleCol">[docs]</a><span class="k">class</span> <span class="nc">DoubleCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Double</span>
+
+</div>
+<span class="nd">@register</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;D[]&#39;</span><span class="p">,</span> <span class="s">&#39;Double_t[]&#39;</span><span class="p">),</span> <span class="n">builtin</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="viewcode-block" id="DoubleArray"><a class="viewcode-back" href="../../modules/generated/rootpy.types.DoubleArray.html#rootpy.types.DoubleArray">[docs]</a><span class="k">class</span> <span class="nc">DoubleArray</span><span class="p">(</span><span class="n">VariableArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an array of doubles</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># The ROOT character representation of the double type</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;D&#39;</span>
+    <span class="n">typename</span> <span class="o">=</span> <span class="s">&#39;Double_t&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">VariableArray</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Double</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)]</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">VariableArray</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="DoubleArrayCol"><a class="viewcode-back" href="../../modules/generated/rootpy.types.DoubleArrayCol.html#rootpy.types.DoubleArrayCol">[docs]</a><span class="k">class</span> <span class="nc">DoubleArrayCol</span><span class="p">(</span><span class="n">Column</span><span class="p">):</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">DoubleArray</span>
+
+
+<span class="c"># ROOT type codes:</span></div>
+<span class="n">root_type_codes</span> <span class="o">=</span> \
+<span class="sd">&#39;&#39;&#39;\</span>
+<span class="sd">O       a boolean (Bool_t) (see note 1)</span>
+<span class="sd">B       an 8 bit signed integer (Char_t)</span>
+<span class="sd">b       an 8 bit unsigned integer (UChar_t)</span>
+<span class="sd">S       a 16 bit signed integer (Short_t)</span>
+<span class="sd">s       a 16 bit unsigned integer (UShort_t)</span>
+<span class="sd">I       a 32 bit signed integer (Int_t)</span>
+<span class="sd">i       a 32 bit unsigned integer (UInt_t)</span>
+<span class="sd">L       a 64 bit signed integer (Long64_t)</span>
+<span class="sd">l       a 64 bit unsigned integer (ULong64_t)</span>
+<span class="sd">F       a 32 bit floating point (Float_t)</span>
+<span class="sd">D       a 64 bit floating point (Double_t)\</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">root_type_codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">root_type_codes</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)]</span>
+
+<span class="c"># ROOT type names:</span>
+<span class="n">root_type_names</span> <span class="o">=</span> \
+<span class="sd">&#39;&#39;&#39;\</span>
+<span class="sd">Bool_t</span>
+<span class="sd">Char_t</span>
+<span class="sd">UChar_t</span>
+<span class="sd">Short_t</span>
+<span class="sd">UShort_t</span>
+<span class="sd">Int_t</span>
+<span class="sd">UInt_t</span>
+<span class="sd">Long64_t</span>
+<span class="sd">ULong64_t</span>
+<span class="sd">Float_t</span>
+<span class="sd">Double_t\</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">root_type_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">root_type_names</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)]</span>
+
+<span class="c"># Python array:</span>
+<span class="n">python_codes</span> <span class="o">=</span> \
+<span class="sd">&#39;&#39;&#39;\</span>
+<span class="sd">B       unsigned char   int                 1 (used as boolean)</span>
+<span class="sd">b       signed char     int                 1</span>
+<span class="sd">B       unsigned char   int                 1</span>
+<span class="sd">h       signed short    int                 2</span>
+<span class="sd">H       unsigned short  int                 2</span>
+<span class="sd">i       signed int      int                 2</span>
+<span class="sd">I       unsigned int    long                2</span>
+<span class="sd">l       signed long     int                 4</span>
+<span class="sd">L       unsigned long   long                4</span>
+<span class="sd">f       float           float               4</span>
+<span class="sd">d       double          float               8\</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">python_codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">python_codes</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)]</span>
+
+<span class="c"># Python NumPy array:</span>
+<span class="n">numpy_codes</span> <span class="o">=</span> \
+<span class="sd">&#39;&#39;&#39;\</span>
+<span class="sd">b       Boolean</span>
+<span class="sd">i1      Char</span>
+<span class="sd">u1      Unsigned Char</span>
+<span class="sd">i2      Short Integer</span>
+<span class="sd">u2      Unsigned Short integer</span>
+<span class="sd">i4      Integer</span>
+<span class="sd">u4      Unsigned integer</span>
+<span class="sd">i8      Long Integer</span>
+<span class="sd">u8      Unsigned Long integer</span>
+<span class="sd">f4      Floating point</span>
+<span class="sd">f8      Double Floating point\</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">numpy_codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">numpy_codes</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)]</span>
+
+
+<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../modules/generated/rootpy.types.convert.html#rootpy.types.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    convert type from origin to target</span>
+<span class="sd">    origin/target must be ROOTCODE, ROOTNAME, ARRAY, or NUMPY</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_origin</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">_origin</span> <span class="o">==</span> <span class="s">&#39;ROOTCODE&#39;</span><span class="p">:</span>
+        <span class="n">_origin</span> <span class="o">=</span> <span class="n">root_type_codes</span>
+    <span class="k">elif</span> <span class="n">_origin</span> <span class="o">==</span> <span class="s">&#39;ROOTNAME&#39;</span><span class="p">:</span>
+        <span class="n">_origin</span> <span class="o">=</span> <span class="n">root_type_names</span>
+    <span class="k">elif</span> <span class="n">_origin</span> <span class="o">==</span> <span class="s">&#39;ARRAY&#39;</span><span class="p">:</span>
+        <span class="n">_origin</span> <span class="o">=</span> <span class="n">python_codes</span>
+    <span class="k">elif</span> <span class="n">_origin</span> <span class="o">==</span> <span class="s">&#39;NUMPY&#39;</span><span class="p">:</span>
+        <span class="n">_origin</span> <span class="o">=</span> <span class="n">numpy_codes</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> is not a valid type&quot;</span> <span class="o">%</span> <span class="n">origin</span><span class="p">)</span>
+
+    <span class="n">_target</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">_target</span> <span class="o">==</span> <span class="s">&#39;ROOTCODE&#39;</span><span class="p">:</span>
+        <span class="n">_target</span> <span class="o">=</span> <span class="n">root_type_codes</span>
+    <span class="k">elif</span> <span class="n">_target</span> <span class="o">==</span> <span class="s">&#39;ROOTNAME&#39;</span><span class="p">:</span>
+        <span class="n">_target</span> <span class="o">=</span> <span class="n">root_type_names</span>
+    <span class="k">elif</span> <span class="n">_target</span> <span class="o">==</span> <span class="s">&#39;ARRAY&#39;</span><span class="p">:</span>
+        <span class="n">_target</span> <span class="o">=</span> <span class="n">python_codes</span>
+    <span class="k">elif</span> <span class="n">_target</span> <span class="o">==</span> <span class="s">&#39;NUMPY&#39;</span><span class="p">:</span>
+        <span class="n">_target</span> <span class="o">=</span> <span class="n">numpy_codes</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> is not a valid type&quot;</span> <span class="o">%</span> <span class="n">target</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_origin</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> is not a valid </span><span class="si">%s</span><span class="s"> type&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">origin</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">_target</span><span class="p">[</span><span class="n">_origin</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">type</span><span class="p">)]</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">rootpy dev documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+<div class="footer">
+    &copy; Copyright 2013, rootpy developers.
+  Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+</div>
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,7 @@
+rootpy.plotting.Canvas
+======================
+
+.. currentmodule:: rootpy.plotting
+
+.. autoclass:: Canvas
+   :no-undoc-members:

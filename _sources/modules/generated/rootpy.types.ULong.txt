@@ -1,0 +1,7 @@
+rootpy.types.ULong
+==================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: ULong
+   :no-undoc-members:

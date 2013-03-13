@@ -1,0 +1,7 @@
+rootpy.logger.LogFilter
+=======================
+
+.. currentmodule:: rootpy.logger
+
+.. autoclass:: LogFilter
+   :no-undoc-members:

@@ -1,0 +1,7 @@
+rootpy.types.Int
+================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: Int
+   :no-undoc-members:

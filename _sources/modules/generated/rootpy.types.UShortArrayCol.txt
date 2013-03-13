@@ -1,0 +1,7 @@
+rootpy.types.UShortArrayCol
+===========================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: UShortArrayCol
+   :no-undoc-members:

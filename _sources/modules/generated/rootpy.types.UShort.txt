@@ -1,0 +1,7 @@
+rootpy.types.UShort
+===================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: UShort
+   :no-undoc-members:

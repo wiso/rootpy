@@ -1,0 +1,7 @@
+rootpy.types.IntArrayCol
+========================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: IntArrayCol
+   :no-undoc-members:

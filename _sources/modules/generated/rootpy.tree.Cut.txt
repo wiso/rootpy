@@ -1,0 +1,7 @@
+rootpy.tree.Cut
+===============
+
+.. currentmodule:: rootpy.tree
+
+.. autoclass:: Cut
+   :no-undoc-members:

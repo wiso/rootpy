@@ -1,0 +1,7 @@
+rootpy.types.Float
+==================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: Float
+   :no-undoc-members:

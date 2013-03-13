@@ -1,0 +1,7 @@
+rootpy.types.DoubleArray
+========================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: DoubleArray
+   :no-undoc-members:

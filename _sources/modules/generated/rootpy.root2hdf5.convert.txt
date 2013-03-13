@@ -1,0 +1,7 @@
+rootpy.root2hdf5.convert
+========================
+
+.. currentmodule:: rootpy.root2hdf5
+
+.. autofunction:: convert
+

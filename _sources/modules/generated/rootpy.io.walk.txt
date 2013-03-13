@@ -1,0 +1,7 @@
+rootpy.io.walk
+==============
+
+.. currentmodule:: rootpy.io
+
+.. autofunction:: walk
+

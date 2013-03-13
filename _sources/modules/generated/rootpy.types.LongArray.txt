@@ -1,0 +1,7 @@
+rootpy.types.LongArray
+======================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: LongArray
+   :no-undoc-members:

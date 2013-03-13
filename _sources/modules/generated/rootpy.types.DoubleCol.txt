@@ -1,0 +1,7 @@
+rootpy.types.DoubleCol
+======================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: DoubleCol
+   :no-undoc-members:

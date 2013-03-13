@@ -1,0 +1,7 @@
+rootpy.types.UIntArray
+======================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: UIntArray
+   :no-undoc-members:

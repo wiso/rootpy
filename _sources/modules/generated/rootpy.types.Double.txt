@@ -1,0 +1,7 @@
+rootpy.types.Double
+===================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: Double
+   :no-undoc-members:

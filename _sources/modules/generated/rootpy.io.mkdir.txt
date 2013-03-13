@@ -1,0 +1,7 @@
+rootpy.io.mkdir
+===============
+
+.. currentmodule:: rootpy.io
+
+.. autofunction:: mkdir
+

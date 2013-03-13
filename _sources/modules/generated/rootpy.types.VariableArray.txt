@@ -1,0 +1,7 @@
+rootpy.types.VariableArray
+==========================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: VariableArray
+   :no-undoc-members:

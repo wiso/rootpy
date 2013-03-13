@@ -1,0 +1,7 @@
+rootpy.types.ShortCol
+=====================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: ShortCol
+   :no-undoc-members:

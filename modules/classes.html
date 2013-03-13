@@ -1,0 +1,705 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+
+    <title>1. rootpy.compiled: Compiling C++ &mdash; rootpy dev documentation</title>
+
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+
+
+    
+    <link rel="stylesheet" href="../_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/searchtools.js"></script>
+    <link rel="top" title="rootpy dev documentation" href="../index.html" />
+    <link rel="next" title="1.1. rootpy.compiled.register_code" href="generated/rootpy.compiled.register_code.html" />
+    <link rel="prev" title="6. Logging" href="logger.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generated/rootpy.compiled.register_code.html" title="1.1. rootpy.compiled.register_code"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="logger.html" title="6. Logging"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">rootpy dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <p>This is the class and function reference of rootpy.</p>
+<div class="contents local topic" id="list-of-modules">
+<p class="topic-title first">List of modules</p>
+<ul class="simple">
+<li><a class="reference internal" href="#module-rootpy.compiled" id="id1"><a class="reference internal" href="#module-rootpy.compiled" title="rootpy.compiled"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.compiled</span></tt></a>: Compiling C++</a></li>
+<li><a class="reference internal" href="#module-rootpy.context" id="id2"><a class="reference internal" href="#module-rootpy.context" title="rootpy.context"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.context</span></tt></a>: Context Managers</a></li>
+<li><a class="reference internal" href="#module-rootpy.data" id="id3"><a class="reference internal" href="#module-rootpy.data" title="rootpy.data"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.data</span></tt></a>: Dataset Management</a></li>
+<li><a class="reference internal" href="#module-rootpy.interactive" id="id4"><a class="reference internal" href="#module-rootpy.interactive" title="rootpy.interactive"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.interactive</span></tt></a>: Interactive Plotting</a></li>
+<li><a class="reference internal" href="#module-rootpy.io" id="id5"><a class="reference internal" href="#module-rootpy.io" title="rootpy.io"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.io</span></tt></a>: ROOT I/O</a></li>
+<li><a class="reference internal" href="#module-rootpy.logger" id="id6"><a class="reference internal" href="#module-rootpy.logger" title="rootpy.logger"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.logger</span></tt></a>: Logging</a><ul>
+<li><a class="reference internal" href="#rootpy-logger" id="id7"><a class="reference internal" href="#module-rootpy.logger" title="rootpy.logger"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.logger</span></tt></a></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.memory" id="id8"><a class="reference internal" href="#module-rootpy.memory" title="rootpy.memory"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.memory</span></tt></a>: Memory Management</a></li>
+<li><a class="reference internal" href="#module-rootpy.plotting" id="id9"><a class="reference internal" href="#module-rootpy.plotting" title="rootpy.plotting"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.plotting</span></tt></a>: Plotting</a></li>
+<li><a class="reference internal" href="#module-rootpy.root2hdf5" id="id10"><a class="reference internal" href="#module-rootpy.root2hdf5" title="rootpy.root2hdf5"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.root2hdf5</span></tt></a>: Conversion to HDF5</a></li>
+<li><a class="reference internal" href="#module-rootpy.stl" id="id11"><a class="reference internal" href="#module-rootpy.stl" title="rootpy.stl"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.stl</span></tt></a>: STL Dictionary Generation</a><ul>
+<li><a class="reference internal" href="#rootpy-stl" id="id12"><a class="reference internal" href="#module-rootpy.stl" title="rootpy.stl"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.stl</span></tt></a></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.tree" id="id13"><a class="reference internal" href="#module-rootpy.tree" title="rootpy.tree"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.tree</span></tt></a>: Trees</a></li>
+<li><a class="reference internal" href="#module-rootpy.types" id="id14"><a class="reference internal" href="#module-rootpy.types" title="rootpy.types"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.types</span></tt></a>: Type Wrappers</a></li>
+</ul>
+</div>
+<div class="section" id="module-rootpy.compiled">
+<span id="rootpy-compiled-compiling-c"></span><span id="compiled-ref"></span><h1><a class="toc-backref" href="#id1">1. <a class="reference internal" href="#module-rootpy.compiled" title="rootpy.compiled"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.compiled</span></tt></a>: Compiling C++</a><a class="headerlink" href="#module-rootpy.compiled" title="Permalink to this headline">¶</a></h1>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.compiled.register_code.html#rootpy.compiled.register_code" title="rootpy.compiled.register_code"><tt class="xref py py-obj docutils literal"><span class="pre">compiled.register_code</span></tt></a></td>
+<td>Note: This assumes that call site occurs exactly once.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.compiled.register_file.html#rootpy.compiled.register_file" title="rootpy.compiled.register_file"><tt class="xref py py-obj docutils literal"><span class="pre">compiled.register_file</span></tt></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.context">
+<span id="rootpy-context-context-managers"></span><span id="context-ref"></span><h1><a class="toc-backref" href="#id2">2. <a class="reference internal" href="#module-rootpy.context" title="rootpy.context"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.context</span></tt></a>: Context Managers</a><a class="headerlink" href="#module-rootpy.context" title="Permalink to this headline">¶</a></h1>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.context.preserve_current_style.html#rootpy.context.preserve_current_style" title="rootpy.context.preserve_current_style"><tt class="xref py py-obj docutils literal"><span class="pre">context.preserve_current_style</span></tt></a>(*args,&nbsp;**kwds)</td>
+<td>Context manager which ensures that the current style remains the current</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.context.preserve_current_canvas.html#rootpy.context.preserve_current_canvas" title="rootpy.context.preserve_current_canvas"><tt class="xref py py-obj docutils literal"><span class="pre">context.preserve_current_canvas</span></tt></a>(*args,&nbsp;**kwds)</td>
+<td>Context manager which ensures that the current canvas remains the current</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.context.preserve_current_directory.html#rootpy.context.preserve_current_directory" title="rootpy.context.preserve_current_directory"><tt class="xref py py-obj docutils literal"><span class="pre">context.preserve_current_directory</span></tt></a>(*args,&nbsp;**kwds)</td>
+<td>Context manager which ensures that the current directory remains the current</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.context.preserve_batch_state.html#rootpy.context.preserve_batch_state" title="rootpy.context.preserve_batch_state"><tt class="xref py py-obj docutils literal"><span class="pre">context.preserve_batch_state</span></tt></a>(*args,&nbsp;**kwds)</td>
+<td>Context manager which ensures the batch state is the same on exit as it was</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.context.invisible_canvas.html#rootpy.context.invisible_canvas" title="rootpy.context.invisible_canvas"><tt class="xref py py-obj docutils literal"><span class="pre">context.invisible_canvas</span></tt></a>(*args,&nbsp;**kwds)</td>
+<td>Context manager yielding a temporary canvas drawn in batch mode, invisible to the user.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.data">
+<span id="rootpy-data-dataset-management"></span><span id="cross-validation-ref"></span><h1><a class="toc-backref" href="#id3">3. <a class="reference internal" href="#module-rootpy.data" title="rootpy.data"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.data</span></tt></a>: Dataset Management</a><a class="headerlink" href="#module-rootpy.data" title="Permalink to this headline">¶</a></h1>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.data.dataset.Fileset.html#rootpy.data.dataset.Fileset" title="rootpy.data.dataset.Fileset"><tt class="xref py py-obj docutils literal"><span class="pre">data.dataset.Fileset</span></tt></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.data.dataset.Treeset.html#rootpy.data.dataset.Treeset" title="rootpy.data.dataset.Treeset"><tt class="xref py py-obj docutils literal"><span class="pre">data.dataset.Treeset</span></tt></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.interactive">
+<span id="rootpy-interactive-interactive-plotting"></span><span id="interactive-ref"></span><h1><a class="toc-backref" href="#id4">4. <a class="reference internal" href="#module-rootpy.interactive" title="rootpy.interactive"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.interactive</span></tt></a>: Interactive Plotting</a><a class="headerlink" href="#module-rootpy.interactive" title="Permalink to this headline">¶</a></h1>
+<p>Provide some features for writing scripts which provide interactive features</p>
+<p>wait: Keeps root alive until ctrl-c is pressed or all canvases are closed</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.interactive.wait_for_zero_canvases.html#rootpy.interactive.wait_for_zero_canvases" title="rootpy.interactive.wait_for_zero_canvases"><tt class="xref py py-obj docutils literal"><span class="pre">interactive.wait_for_zero_canvases</span></tt></a>([...])</td>
+<td>Wait for all canvases to be closed, or CTRL-c.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.interactive.wait.html#rootpy.interactive.wait" title="rootpy.interactive.wait"><tt class="xref py py-obj docutils literal"><span class="pre">interactive.wait</span></tt></a>([middle_mouse_close])</td>
+<td>Wait for all canvases to be closed, or CTRL-c.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.io">
+<span id="rootpy-io-root-i-o"></span><span id="io-ref"></span><h1><a class="toc-backref" href="#id5">5. <a class="reference internal" href="#module-rootpy.io" title="rootpy.io"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.io</span></tt></a>: ROOT I/O</a><a class="headerlink" href="#module-rootpy.io" title="Permalink to this headline">¶</a></h1>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.io.Directory.html#rootpy.io.Directory" title="rootpy.io.Directory"><tt class="xref py py-obj docutils literal"><span class="pre">io.Directory</span></tt></a>(name,&nbsp;title,&nbsp;*args,&nbsp;**kwargs)</td>
+<td>Inherits from TDirectory</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.io.File.html#rootpy.io.File" title="rootpy.io.File"><tt class="xref py py-obj docutils literal"><span class="pre">io.File</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td>Wrapper for TFile that adds various convenience functions.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.io.TemporaryFile.html#rootpy.io.TemporaryFile" title="rootpy.io.TemporaryFile"><tt class="xref py py-obj docutils literal"><span class="pre">io.TemporaryFile</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td>A temporary ROOT file that is automatically deleted when closed.</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.io.open.html#rootpy.io.open" title="rootpy.io.open"><tt class="xref py py-obj docutils literal"><span class="pre">io.open</span></tt></a>(filename[,&nbsp;mode])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.io.walk.html#rootpy.io.walk" title="rootpy.io.walk"><tt class="xref py py-obj docutils literal"><span class="pre">io.walk</span></tt></a>(tdirectory[,&nbsp;top,&nbsp;path,&nbsp;depth,&nbsp;...])</td>
+<td>For each directory in the directory tree rooted at top (including top itself, but excluding &#8216;.&#8217; and &#8216;..&#8217;), yields a 3-tuple  dirpath, dirnames, filenames  dirpath is a string, the path to the directory.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.io.rm.html#rootpy.io.rm" title="rootpy.io.rm"><tt class="xref py py-obj docutils literal"><span class="pre">io.rm</span></tt></a>(path_to_object[,&nbsp;cycle])</td>
+<td>Delete an object in a TDirectory</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.io.cp.html#rootpy.io.cp" title="rootpy.io.cp"><tt class="xref py py-obj docutils literal"><span class="pre">io.cp</span></tt></a>(src,&nbsp;dest_dir[,&nbsp;newname,&nbsp;exclude])</td>
+<td>Copy an object into another TDirectory.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.io.mkdir.html#rootpy.io.mkdir" title="rootpy.io.mkdir"><tt class="xref py py-obj docutils literal"><span class="pre">io.mkdir</span></tt></a>(dest_path[,&nbsp;recurse])</td>
+<td>Make a new directory relative to the CWD</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.logger">
+<span id="rootpy-logger-logging"></span><span id="logger-ref"></span><h1><a class="toc-backref" href="#id6">6. <a class="reference internal" href="#module-rootpy.logger" title="rootpy.logger"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.logger</span></tt></a>: Logging</a><a class="headerlink" href="#module-rootpy.logger" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rootpy-logger">
+<h2><a class="toc-backref" href="#id7">6.1. <a class="reference internal" href="#module-rootpy.logger" title="rootpy.logger"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.logger</span></tt></a></a><a class="headerlink" href="#rootpy-logger" title="Permalink to this headline">¶</a></h2>
+<p><tt class="xref py py-mod docutils literal"><span class="pre">rootpy</span></tt> overrides the default logging class, inserting a check that there
+exists a default logging handler. If there is not, it adds one.</p>
+<p>In additon, this can be used to intercept ROOT&#8217;s log messages and redirect them
+through python&#8217;s logging subsystem</p>
+<p>Example use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Disable colored logging (not needed if writing into a file, this is automatic).</span>
+<span class="c"># Must be done before :py:mod:`rootpy` logs any messages.</span>
+<span class="kn">import</span> <span class="nn">logging</span><span class="p">;</span> <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">rootpy</span> <span class="kn">import</span> <span class="n">log</span><span class="p">;</span> <span class="n">log</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="s">&quot;/myapp&quot;</span><span class="p">]</span>
+<span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span> <span class="c"># Results in &quot;DEBUG:myapp] Hello&quot;</span>
+
+<span class="c"># Suppress all myapp debug and info messages</span>
+<span class="n">log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span> <span class="c"># No effect</span>
+
+<span class="n">mymod</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="s">&quot;mymod&quot;</span><span class="p">]</span>
+<span class="n">mymod</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span> <span class="c"># Results in &quot;WARNING:myapp.mymod] Hello&quot;</span>
+
+<span class="c"># Suppress all rootpy debug and info messages</span>
+<span class="n">log</span><span class="p">[</span><span class="s">&quot;/rootpy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+
+<span class="c"># Suppress messages coming from TCanvas like</span>
+<span class="c"># INFO:ROOT.TCanvas.Print] png file /path/to/file.png has been created</span>
+<span class="n">log</span><span class="p">[</span><span class="s">&quot;/ROOT.TCanvas.Print&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+
+<span class="c"># Suppress warning messages coming the ``TClass`` constructor:</span>
+<span class="n">log</span><span class="p">[</span><span class="s">&quot;/ROOT.TClass.TClass&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+<span class="c"># Precisely remove messages containing the text &quot;no dictionary for class&quot;</span>
+<span class="c"># (doesn&#39;t work when attached to parent logger)</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="k">class</span> <span class="nc">NoDictMessagesFilter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Filter</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;no dictionary for class&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">msg</span>
+<span class="n">log</span><span class="p">[</span><span class="s">&quot;/ROOT.TClass.TClass&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span><span class="n">NoDictMessagesFilter</span><span class="p">())</span>
+
+<span class="c"># Turn ROOT errors into exceptions</span>
+<span class="kn">from</span> <span class="nn">rootpy.logger.magic</span> <span class="kn">import</span> <span class="n">DANGER</span>
+<span class="n">DANGER</span><span class="o">.</span><span class="n">enable</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="kn">import</span> <span class="nn">ROOT</span>
+<span class="n">ROOT</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">,</span> <span class="s">&quot;Test fatal&quot;</span><span class="p">)</span>
+<span class="c"># Result:</span>
+<span class="c"># ERROR:ROOT.test] Test fatal</span>
+<span class="c"># Traceback (most recent call last):</span>
+<span class="c">#   File &quot;test.py&quot;, line 36, in &lt;module&gt;</span>
+<span class="c">#     ROOT.Fatal(&quot;test&quot;, &quot;Test fatal&quot;)</span>
+<span class="c">#   File &quot;test.py&quot;, line 36, in &lt;module&gt;</span>
+<span class="c">#     ROOT.Fatal(&quot;test&quot;, &quot;Test fatal&quot;)</span>
+<span class="c">#   File &quot;rootpy/logger/roothandler.py&quot;, line 40, in python_logging_error_handler</span>
+<span class="c">#     raise ROOTError(level, location, msg)</span>
+<span class="c"># rootpy.ROOTError: level=6000, loc=&#39;test&#39;, msg=&#39;Test fatal&#39;</span>
+
+<span class="c"># Primitive function tracing:</span>
+<span class="nd">@log.trace</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">salut</span><span class="p">():</span>
+    <span class="k">return</span>
+
+<span class="nd">@log.trace</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">what</span><span class="p">):</span>
+    <span class="n">salut</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s">&quot;42&quot;</span>
+
+<span class="n">hello</span><span class="p">(</span><span class="s">&quot;world&quot;</span><span class="p">)</span>
+<span class="c"># Result:</span>
+<span class="c">#   DEBUG:myapp.trace.hello] &gt; (&#39;world&#39;,) {}</span>
+<span class="c">#   DEBUG:myapp.trace.salut]  &gt; () {}</span>
+<span class="c">#   DEBUG:myapp.trace.salut]  &lt; return None [0.00 sec]</span>
+<span class="c">#   DEBUG:myapp.trace.hello] &lt; return 42 [0.00 sec]</span>
+</pre></div>
+</div>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.logger.LogFilter.html#rootpy.logger.LogFilter" title="rootpy.logger.LogFilter"><tt class="xref py py-obj docutils literal"><span class="pre">logger.LogFilter</span></tt></a>(logger,&nbsp;message_regex)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.logger.log_trace.html#rootpy.logger.log_trace" title="rootpy.logger.log_trace"><tt class="xref py py-obj docutils literal"><span class="pre">logger.log_trace</span></tt></a>(logger[,&nbsp;level,&nbsp;...])</td>
+<td>log a statement on function entry and exit</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.memory">
+<span id="rootpy-memory-memory-management"></span><span id="memory-ref"></span><h1><a class="toc-backref" href="#id8">7. <a class="reference internal" href="#module-rootpy.memory" title="rootpy.memory"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.memory</span></tt></a>: Memory Management</a><a class="headerlink" href="#module-rootpy.memory" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="module-rootpy.plotting">
+<span id="rootpy-plotting-plotting"></span><span id="plotting-ref"></span><h1><a class="toc-backref" href="#id9">8. <a class="reference internal" href="#module-rootpy.plotting" title="rootpy.plotting"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.plotting</span></tt></a>: Plotting</a><a class="headerlink" href="#module-rootpy.plotting" title="Permalink to this headline">¶</a></h1>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.plotting.Hist.html#rootpy.plotting.Hist" title="rootpy.plotting.Hist"><tt class="xref py py-obj docutils literal"><span class="pre">plotting.Hist</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td>Returns a 1-dimensional Hist object which inherits from the associated</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.plotting.Hist2D.html#rootpy.plotting.Hist2D" title="rootpy.plotting.Hist2D"><tt class="xref py py-obj docutils literal"><span class="pre">plotting.Hist2D</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td>Returns a 2-dimensional Hist object which inherits from the associated</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.plotting.Hist3D.html#rootpy.plotting.Hist3D" title="rootpy.plotting.Hist3D"><tt class="xref py py-obj docutils literal"><span class="pre">plotting.Hist3D</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td>Returns a 3-dimensional Hist object which inherits from the associated</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.plotting.HistStack.html#rootpy.plotting.HistStack" title="rootpy.plotting.HistStack"><tt class="xref py py-obj docutils literal"><span class="pre">plotting.HistStack</span></tt></a>([name,&nbsp;title])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.plotting.Graph.html#rootpy.plotting.Graph" title="rootpy.plotting.Graph"><tt class="xref py py-obj docutils literal"><span class="pre">plotting.Graph</span></tt></a>([npoints,&nbsp;hist,&nbsp;filename,&nbsp;...])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.plotting.Graph2D.html#rootpy.plotting.Graph2D" title="rootpy.plotting.Graph2D"><tt class="xref py py-obj docutils literal"><span class="pre">plotting.Graph2D</span></tt></a>([npoints,&nbsp;hist,&nbsp;name,&nbsp;title])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.plotting.Legend.html#rootpy.plotting.Legend" title="rootpy.plotting.Legend"><tt class="xref py py-obj docutils literal"><span class="pre">plotting.Legend</span></tt></a>(nentries[,&nbsp;pad,&nbsp;leftmargin,&nbsp;...])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.plotting.Canvas.html#rootpy.plotting.Canvas" title="rootpy.plotting.Canvas"><tt class="xref py py-obj docutils literal"><span class="pre">plotting.Canvas</span></tt></a>([width,&nbsp;height,&nbsp;xpos,&nbsp;ypos,&nbsp;...])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.plotting.Pad.html#rootpy.plotting.Pad" title="rootpy.plotting.Pad"><tt class="xref py py-obj docutils literal"><span class="pre">plotting.Pad</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.root2hdf5">
+<span id="rootpy-root2hdf5-conversion-to-hdf5"></span><span id="root2hdf5-ref"></span><h1><a class="toc-backref" href="#id10">9. <a class="reference internal" href="#module-rootpy.root2hdf5" title="rootpy.root2hdf5"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.root2hdf5</span></tt></a>: Conversion to HDF5</a><a class="headerlink" href="#module-rootpy.root2hdf5" title="Permalink to this headline">¶</a></h1>
+<p>This module handles conversion of ROOT&#8217;s TFile and
+contained TTrees into HDF5 format with PyTables</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.root2hdf5.convert.html#rootpy.root2hdf5.convert" title="rootpy.root2hdf5.convert"><tt class="xref py py-obj docutils literal"><span class="pre">root2hdf5.convert</span></tt></a>(rfile,&nbsp;hfile[,&nbsp;rpath,&nbsp;...])</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.stl">
+<span id="rootpy-stl-stl-dictionary-generation"></span><span id="stl-ref"></span><h1><a class="toc-backref" href="#id11">10. <a class="reference internal" href="#module-rootpy.stl" title="rootpy.stl"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.stl</span></tt></a>: STL Dictionary Generation</a><a class="headerlink" href="#module-rootpy.stl" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rootpy-stl">
+<h2><a class="toc-backref" href="#id12">10.1. <a class="reference internal" href="#module-rootpy.stl" title="rootpy.stl"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.stl</span></tt></a></a><a class="headerlink" href="#rootpy-stl" title="Permalink to this headline">¶</a></h2>
+<p>This module allows C++ template types to be generated on demand with ease,
+automatically building dictionaries with <tt class="xref py py-mod docutils literal"><span class="pre">rootpy.rootcint</span></tt> as necessary.</p>
+<p>It contains a C++ template typename parser written in
+<tt class="xref py py-mod docutils literal"><span class="pre">rootpy.extern.pyparsing</span></tt>.</p>
+<p>Example use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">rootpy.stl</span> <span class="kn">as</span> <span class="nn">stl</span><span class="o">,</span> <span class="nn">ROOT</span>
+
+<span class="c"># Create a vector type</span>
+<span class="n">StrVector</span> <span class="o">=</span> <span class="n">stl</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">stl</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+<span class="c"># Instantiate</span>
+<span class="n">strvector</span> <span class="o">=</span> <span class="n">StrVector</span><span class="p">()</span>
+<span class="n">strvector</span><span class="o">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="c"># etc.</span>
+
+<span class="n">MapStrRoot</span> <span class="o">=</span> <span class="n">stl</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">stl</span><span class="o">.</span><span class="n">string</span><span class="p">,</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TH1D</span><span class="p">)</span>
+<span class="n">MapStrRootPtr</span> <span class="o">=</span> <span class="n">stl</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">stl</span><span class="o">.</span><span class="n">string</span><span class="p">,</span> <span class="s">&quot;TH1D*&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.stl.generate.html#rootpy.stl.generate" title="rootpy.stl.generate"><tt class="xref py py-obj docutils literal"><span class="pre">stl.generate</span></tt></a>(declaration[,&nbsp;headers,&nbsp;...])</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.tree">
+<span id="rootpy-tree-trees"></span><span id="tree-ref"></span><h1><a class="toc-backref" href="#id13">11. <a class="reference internal" href="#module-rootpy.tree" title="rootpy.tree"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.tree</span></tt></a>: Trees</a><a class="headerlink" href="#module-rootpy.tree" title="Permalink to this headline">¶</a></h1>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.tree.Tree.html#rootpy.tree.Tree" title="rootpy.tree.Tree"><tt class="xref py py-obj docutils literal"><span class="pre">tree.Tree</span></tt></a>([name,&nbsp;title,&nbsp;model])</td>
+<td>Inherits from TTree so all regular TTree methods are available</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.tree.TreeModel.html#rootpy.tree.TreeModel" title="rootpy.tree.TreeModel"><tt class="xref py py-obj docutils literal"><span class="pre">tree.TreeModel</span></tt></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.tree.TreeChain.html#rootpy.tree.TreeChain" title="rootpy.tree.TreeChain"><tt class="xref py py-obj docutils literal"><span class="pre">tree.TreeChain</span></tt></a>(name,&nbsp;files,&nbsp;**kwargs)</td>
+<td>A ROOT.TChain replacement</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.tree.TreeQueue.html#rootpy.tree.TreeQueue" title="rootpy.tree.TreeQueue"><tt class="xref py py-obj docutils literal"><span class="pre">tree.TreeQueue</span></tt></a>(name,&nbsp;files,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.tree.Cut.html#rootpy.tree.Cut" title="rootpy.tree.Cut"><tt class="xref py py-obj docutils literal"><span class="pre">tree.Cut</span></tt></a>([cut,&nbsp;from_file])</td>
+<td>Inherits from ROOT.TCut and implements logical operators</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.tree.Categories.html#rootpy.tree.Categories" title="rootpy.tree.Categories"><tt class="xref py py-obj docutils literal"><span class="pre">tree.Categories</span></tt></a>(feature,&nbsp;data,&nbsp;variables[,&nbsp;...])</td>
+<td>Implements a mechanism to ease the creation of cuts that describe</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-rootpy.types">
+<span id="rootpy-types-type-wrappers"></span><span id="types-ref"></span><h1><a class="toc-backref" href="#id14">12. <a class="reference internal" href="#module-rootpy.types" title="rootpy.types"><tt class="xref py py-mod docutils literal"><span class="pre">rootpy.types</span></tt></a>: Type Wrappers</a><a class="headerlink" href="#module-rootpy.types" title="Permalink to this headline">¶</a></h1>
+<p>Wrappers for basic types that are compatible with ROOT TTrees</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.Column.html#rootpy.types.Column" title="rootpy.types.Column"><tt class="xref py py-obj docutils literal"><span class="pre">types.Column</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.ObjectCol.html#rootpy.types.ObjectCol" title="rootpy.types.ObjectCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.ObjectCol</span></tt></a>(cls,&nbsp;*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.Variable.html#rootpy.types.Variable" title="rootpy.types.Variable"><tt class="xref py py-obj docutils literal"><span class="pre">types.Variable</span></tt></a>([resetable])</td>
+<td>This is the base class for all variables</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.VariableArray.html#rootpy.types.VariableArray" title="rootpy.types.VariableArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.VariableArray</span></tt></a>([resetable])</td>
+<td>This is the base class for all array variables</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.Bool.html#rootpy.types.Bool" title="rootpy.types.Bool"><tt class="xref py py-obj docutils literal"><span class="pre">types.Bool</span></tt></a>([default])</td>
+<td>This is a variable containing a Boolean type</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.BoolCol.html#rootpy.types.BoolCol" title="rootpy.types.BoolCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.BoolCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.BoolArray.html#rootpy.types.BoolArray" title="rootpy.types.BoolArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.BoolArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of Booleans</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.BoolArrayCol.html#rootpy.types.BoolArrayCol" title="rootpy.types.BoolArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.BoolArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.Char.html#rootpy.types.Char" title="rootpy.types.Char"><tt class="xref py py-obj docutils literal"><span class="pre">types.Char</span></tt></a>([default])</td>
+<td>This is a variable containing a character type</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.CharCol.html#rootpy.types.CharCol" title="rootpy.types.CharCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.CharCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.CharArray.html#rootpy.types.CharArray" title="rootpy.types.CharArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.CharArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of characters</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.CharArrayCol.html#rootpy.types.CharArrayCol" title="rootpy.types.CharArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.CharArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.UChar.html#rootpy.types.UChar" title="rootpy.types.UChar"><tt class="xref py py-obj docutils literal"><span class="pre">types.UChar</span></tt></a>([default])</td>
+<td>This is a variable containing an unsigned character type</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.UCharCol.html#rootpy.types.UCharCol" title="rootpy.types.UCharCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.UCharCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.UCharArray.html#rootpy.types.UCharArray" title="rootpy.types.UCharArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.UCharArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of unsigned characters</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.UCharArrayCol.html#rootpy.types.UCharArrayCol" title="rootpy.types.UCharArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.UCharArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.Short.html#rootpy.types.Short" title="rootpy.types.Short"><tt class="xref py py-obj docutils literal"><span class="pre">types.Short</span></tt></a>([default])</td>
+<td>This is a variable containing an integer</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.ShortCol.html#rootpy.types.ShortCol" title="rootpy.types.ShortCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.ShortCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.ShortArray.html#rootpy.types.ShortArray" title="rootpy.types.ShortArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.ShortArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of integers</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.ShortArrayCol.html#rootpy.types.ShortArrayCol" title="rootpy.types.ShortArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.ShortArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.UShort.html#rootpy.types.UShort" title="rootpy.types.UShort"><tt class="xref py py-obj docutils literal"><span class="pre">types.UShort</span></tt></a>([default])</td>
+<td>This is a variable containing a short</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.UShortCol.html#rootpy.types.UShortCol" title="rootpy.types.UShortCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.UShortCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.UShortArray.html#rootpy.types.UShortArray" title="rootpy.types.UShortArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.UShortArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of unsigned shorts</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.UShortArrayCol.html#rootpy.types.UShortArrayCol" title="rootpy.types.UShortArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.UShortArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.Int.html#rootpy.types.Int" title="rootpy.types.Int"><tt class="xref py py-obj docutils literal"><span class="pre">types.Int</span></tt></a>([default])</td>
+<td>This is a variable containing an integer</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.IntCol.html#rootpy.types.IntCol" title="rootpy.types.IntCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.IntCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.IntArray.html#rootpy.types.IntArray" title="rootpy.types.IntArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.IntArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of integers</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.IntArrayCol.html#rootpy.types.IntArrayCol" title="rootpy.types.IntArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.IntArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.UInt.html#rootpy.types.UInt" title="rootpy.types.UInt"><tt class="xref py py-obj docutils literal"><span class="pre">types.UInt</span></tt></a>([default])</td>
+<td>This is a variable containing an unsigned integer</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.UIntCol.html#rootpy.types.UIntCol" title="rootpy.types.UIntCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.UIntCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.UIntArray.html#rootpy.types.UIntArray" title="rootpy.types.UIntArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.UIntArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of unsigned integers</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.UIntArrayCol.html#rootpy.types.UIntArrayCol" title="rootpy.types.UIntArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.UIntArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.Long.html#rootpy.types.Long" title="rootpy.types.Long"><tt class="xref py py-obj docutils literal"><span class="pre">types.Long</span></tt></a>([default])</td>
+<td>This is a variable containing a long</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.LongCol.html#rootpy.types.LongCol" title="rootpy.types.LongCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.LongCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.LongArray.html#rootpy.types.LongArray" title="rootpy.types.LongArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.LongArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of longs</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.LongArrayCol.html#rootpy.types.LongArrayCol" title="rootpy.types.LongArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.LongArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.ULong.html#rootpy.types.ULong" title="rootpy.types.ULong"><tt class="xref py py-obj docutils literal"><span class="pre">types.ULong</span></tt></a>([default])</td>
+<td>This is a variable containing an unsigned long</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.ULongCol.html#rootpy.types.ULongCol" title="rootpy.types.ULongCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.ULongCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.ULongArray.html#rootpy.types.ULongArray" title="rootpy.types.ULongArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.ULongArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is of unsigned longs</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.ULongArrayCol.html#rootpy.types.ULongArrayCol" title="rootpy.types.ULongArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.ULongArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.Float.html#rootpy.types.Float" title="rootpy.types.Float"><tt class="xref py py-obj docutils literal"><span class="pre">types.Float</span></tt></a>([default])</td>
+<td>This is a variable containing a float</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.FloatCol.html#rootpy.types.FloatCol" title="rootpy.types.FloatCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.FloatCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.FloatArray.html#rootpy.types.FloatArray" title="rootpy.types.FloatArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.FloatArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of floats</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.FloatArrayCol.html#rootpy.types.FloatArrayCol" title="rootpy.types.FloatArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.FloatArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.Double.html#rootpy.types.Double" title="rootpy.types.Double"><tt class="xref py py-obj docutils literal"><span class="pre">types.Double</span></tt></a>([default])</td>
+<td>This is a variable containing a double</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.DoubleCol.html#rootpy.types.DoubleCol" title="rootpy.types.DoubleCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.DoubleCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.DoubleArray.html#rootpy.types.DoubleArray" title="rootpy.types.DoubleArray"><tt class="xref py py-obj docutils literal"><span class="pre">types.DoubleArray</span></tt></a>(length[,&nbsp;default])</td>
+<td>This is an array of doubles</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/rootpy.types.DoubleArrayCol.html#rootpy.types.DoubleArrayCol" title="rootpy.types.DoubleArrayCol"><tt class="xref py py-obj docutils literal"><span class="pre">types.DoubleArrayCol</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/rootpy.types.convert.html#rootpy.types.convert" title="rootpy.types.convert"><tt class="xref py py-obj docutils literal"><span class="pre">types.convert</span></tt></a>(origin,&nbsp;target,&nbsp;type)</td>
+<td>convert type from origin to target</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">1. <tt class="docutils literal"><span class="pre">rootpy.compiled</span></tt>: Compiling C++</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.context">2. <tt class="docutils literal"><span class="pre">rootpy.context</span></tt>: Context Managers</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.data">3. <tt class="docutils literal"><span class="pre">rootpy.data</span></tt>: Dataset Management</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.interactive">4. <tt class="docutils literal"><span class="pre">rootpy.interactive</span></tt>: Interactive Plotting</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.io">5. <tt class="docutils literal"><span class="pre">rootpy.io</span></tt>: ROOT I/O</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.logger">6. <tt class="docutils literal"><span class="pre">rootpy.logger</span></tt>: Logging</a><ul>
+<li><a class="reference internal" href="#rootpy-logger">6.1. <tt class="docutils literal"><span class="pre">rootpy.logger</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.memory">7. <tt class="docutils literal"><span class="pre">rootpy.memory</span></tt>: Memory Management</a></li>
+<li><a class="reference internal" href="#module-rootpy.plotting">8. <tt class="docutils literal"><span class="pre">rootpy.plotting</span></tt>: Plotting</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.root2hdf5">9. <tt class="docutils literal"><span class="pre">rootpy.root2hdf5</span></tt>: Conversion to HDF5</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.stl">10. <tt class="docutils literal"><span class="pre">rootpy.stl</span></tt>: STL Dictionary Generation</a><ul>
+<li><a class="reference internal" href="#rootpy-stl">10.1. <tt class="docutils literal"><span class="pre">rootpy.stl</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.tree">11. <tt class="docutils literal"><span class="pre">rootpy.tree</span></tt>: Trees</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rootpy.types">12. <tt class="docutils literal"><span class="pre">rootpy.types</span></tt>: Type Wrappers</a><ul>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="logger.html"
+                        title="previous chapter">6. Logging</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="generated/rootpy.compiled.register_code.html"
+                        title="next chapter">1.1. rootpy.compiled.register_code</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/classes.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generated/rootpy.compiled.register_code.html" title="1.1. rootpy.compiled.register_code"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="logger.html" title="6. Logging"
+             >previous</a> |</li>
+        <li><a href="../index.html">rootpy dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+<div class="footer">
+    &copy; Copyright 2013, rootpy developers.
+  Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+</div>
+
+
+
+
+
+  </body>
+</html>

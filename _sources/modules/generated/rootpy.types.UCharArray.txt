@@ -1,0 +1,7 @@
+rootpy.types.UCharArray
+=======================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: UCharArray
+   :no-undoc-members:

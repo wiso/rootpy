@@ -1,0 +1,7 @@
+rootpy.types.BoolArray
+======================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: BoolArray
+   :no-undoc-members:

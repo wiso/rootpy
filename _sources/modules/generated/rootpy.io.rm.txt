@@ -1,0 +1,7 @@
+rootpy.io.rm
+============
+
+.. currentmodule:: rootpy.io
+
+.. autofunction:: rm
+

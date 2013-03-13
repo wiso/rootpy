@@ -1,0 +1,7 @@
+rootpy.io.File
+==============
+
+.. currentmodule:: rootpy.io
+
+.. autoclass:: File
+   :no-undoc-members:

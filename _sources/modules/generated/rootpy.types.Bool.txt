@@ -1,0 +1,7 @@
+rootpy.types.Bool
+=================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: Bool
+   :no-undoc-members:

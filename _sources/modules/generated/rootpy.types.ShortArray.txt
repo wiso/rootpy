@@ -1,0 +1,7 @@
+rootpy.types.ShortArray
+=======================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: ShortArray
+   :no-undoc-members:

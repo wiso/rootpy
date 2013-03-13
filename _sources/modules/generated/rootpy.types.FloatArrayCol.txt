@@ -1,0 +1,7 @@
+rootpy.types.FloatArrayCol
+==========================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: FloatArrayCol
+   :no-undoc-members:

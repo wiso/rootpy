@@ -1,0 +1,7 @@
+rootpy.types.IntCol
+===================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: IntCol
+   :no-undoc-members:

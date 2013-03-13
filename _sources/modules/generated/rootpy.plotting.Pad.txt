@@ -1,0 +1,7 @@
+rootpy.plotting.Pad
+===================
+
+.. currentmodule:: rootpy.plotting
+
+.. autoclass:: Pad
+   :no-undoc-members:

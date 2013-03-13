@@ -1,0 +1,7 @@
+rootpy.types.convert
+====================
+
+.. currentmodule:: rootpy.types
+
+.. autofunction:: convert
+

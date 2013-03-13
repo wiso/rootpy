@@ -1,0 +1,7 @@
+rootpy.io.cp
+============
+
+.. currentmodule:: rootpy.io
+
+.. autofunction:: cp
+

@@ -1,0 +1,188 @@
+
+.. raw:: html
+
+
+    <style type="text/css">
+
+    div#sidebarbutton {
+        display: none;
+    }
+
+    .figure {
+        float: left;
+        margin: 10px;
+        width: auto;
+        height: 200px;
+        width: 180px;
+    }
+
+    .figure img {
+        display: inline;
+        }
+
+    .figure .caption {
+        width: 170px;
+        text-align: center !important;
+    }
+    </style>
+
+.. _examples-index:
+
+
+
+
+
+
+
+.. raw:: html
+
+    <div style="clear: both"></div>
+    
+
+
+.. _root2array_examples:
+
+NumPy Interface
+---------------
+
+Examples concerning the :mod:`rootpy.root2array` package.
+
+
+
+
+
+.. toctree::
+
+   array/plot_hist_fill_array
+
+
+
+.. toctree::
+
+   array/tree_to_array
+
+
+.. raw:: html
+
+    <div style="clear: both"></div>
+    
+
+
+.. _io_examples:
+
+Input/Output
+------------
+
+Examples concerning the :mod:`rootpy.io` package.
+
+
+
+
+
+.. toctree::
+
+   io/file
+
+
+.. raw:: html
+
+    <div style="clear: both"></div>
+    
+
+
+.. _plotting_examples:
+
+Plotting
+--------
+
+Examples concerning the :mod:`rootpy.plotting` package.
+
+
+
+
+
+.. toctree::
+
+   plotting/plot_hist
+
+
+
+.. toctree::
+
+   plotting/plot_matplotlib_hist
+
+
+
+.. toctree::
+
+   plotting/plot_style
+
+
+.. raw:: html
+
+    <div style="clear: both"></div>
+    
+
+
+.. _tree_examples:
+
+Trees
+-----
+
+Examples concerning the :mod:`rootpy.tree` package.
+
+
+
+
+
+.. toctree::
+
+   tree/chain
+
+
+
+.. toctree::
+
+   tree/chain_overwrite
+
+
+
+.. toctree::
+
+   tree/model
+
+
+
+.. toctree::
+
+   tree/model_simple
+
+
+
+.. toctree::
+
+   tree/models
+
+
+
+.. toctree::
+
+   tree/object_branch
+
+
+
+.. toctree::
+
+   tree/overwrite
+
+
+
+.. toctree::
+
+   tree/simple
+
+
+.. raw:: html
+
+    <div style="clear: both"></div>
+    

@@ -1,0 +1,7 @@
+rootpy.types.ULongCol
+=====================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: ULongCol
+   :no-undoc-members:

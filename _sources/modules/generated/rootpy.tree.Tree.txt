@@ -1,0 +1,7 @@
+rootpy.tree.Tree
+================
+
+.. currentmodule:: rootpy.tree
+
+.. autoclass:: Tree
+   :no-undoc-members:

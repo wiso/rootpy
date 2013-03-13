@@ -1,0 +1,7 @@
+rootpy.io.TemporaryFile
+=======================
+
+.. currentmodule:: rootpy.io
+
+.. autoclass:: TemporaryFile
+   :no-undoc-members:

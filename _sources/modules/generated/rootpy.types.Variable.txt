@@ -1,0 +1,7 @@
+rootpy.types.Variable
+=====================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: Variable
+   :no-undoc-members:

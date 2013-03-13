@@ -1,0 +1,7 @@
+rootpy.plotting.Hist2D
+======================
+
+.. currentmodule:: rootpy.plotting
+
+.. autoclass:: Hist2D
+   :no-undoc-members:

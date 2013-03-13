@@ -1,0 +1,7 @@
+rootpy.types.ObjectCol
+======================
+
+.. currentmodule:: rootpy.types
+
+.. autoclass:: ObjectCol
+   :no-undoc-members:
