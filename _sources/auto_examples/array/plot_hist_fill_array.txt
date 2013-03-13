@@ -38,5 +38,5 @@ filled with a NumPy array.
 .. literalinclude:: plot_hist_fill_array.py
     :lines: 11-
 
-**Total running time of the example:**  1.13 seconds
+**Total running time of the example:**  1.17 seconds
     
