@@ -74,10 +74,10 @@
 <p>ROOT&#8217;s TTree is subclassed in rootpy and additional API is introduced to ease
 their creation in Python:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">rootpy.tree</span> <span class="kn">import</span> <span class="n">Tree</span>
-<span class="kn">from</span> <span class="nn">rootpy.io</span> <span class="kn">import</span> <span class="n">root_open</span> <span class="k">as</span> <span class="n">ropen</span>
+<span class="kn">from</span> <span class="nn">rootpy.io</span> <span class="kn">import</span> <span class="n">root_open</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">gauss</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">ropen</span><span class="p">(</span><span class="s">&quot;test.root&quot;</span><span class="p">,</span> <span class="s">&quot;recreate&quot;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">root_open</span><span class="p">(</span><span class="s">&quot;test.root&quot;</span><span class="p">,</span> <span class="s">&quot;recreate&quot;</span><span class="p">)</span>
 
 <span class="n">tree</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
 <span class="n">tree</span><span class="o">.</span><span class="n">create_branches</span><span class="p">(</span>
@@ -167,7 +167,9 @@ included.</p>
 <h2>4.5. Cuts<a class="headerlink" href="#cuts" title="Permalink to this headline">¶</a></h2>
 <p>The rootpy <a class="reference internal" href="generated/rootpy.tree.Cut.html#rootpy.tree.Cut" title="rootpy.tree.Cut"><tt class="xref py py-class docutils literal"><span class="pre">rootpy.tree.Cut</span></tt></a> class inherits from <tt class="docutils literal"><span class="pre">ROOT.TCut</span></tt> and
 implements logical operators so cuts can be easily combined:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cut1</span> <span class="o">=</span> <span class="n">Cut</span><span class="p">(</span><span class="s">&#39;a &lt; 10&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">rootpy.tree</span> <span class="kn">import</span> <span class="n">Cut</span>
+
+<span class="n">cut1</span> <span class="o">=</span> <span class="n">Cut</span><span class="p">(</span><span class="s">&#39;a &lt; 10&#39;</span><span class="p">)</span>
 <span class="n">cut2</span> <span class="o">=</span> <span class="n">Cut</span><span class="p">(</span><span class="s">&#39;b % 2 == 0&#39;</span><span class="p">)</span>
 
 <span class="n">cut</span> <span class="o">=</span> <span class="n">cut1</span> <span class="o">&amp;</span> <span class="n">cut2</span>
@@ -193,7 +195,7 @@ implements logical operators so cuts can be easily combined:</p>
 <h2>4.6. Categories<a class="headerlink" href="#categories" title="Permalink to this headline">¶</a></h2>
 <p>rootpy introduces a new mechanism with <a class="reference internal" href="generated/rootpy.tree.Categories.html#rootpy.tree.Categories" title="rootpy.tree.Categories"><tt class="xref py py-class docutils literal"><span class="pre">rootpy.tree.Categories</span></tt></a>
 to ease the creation of cuts that describe non-overlapping categories.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rootpy.tree</span> <span class="kn">import</span> <span class="n">Categories</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rootpy.tree.categories</span> <span class="kn">import</span> <span class="n">Categories</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">categories</span> <span class="o">=</span> <span class="n">Categories</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s">&#39;{a|1,2,3}x{b|4,5,6}&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">cut</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="k">print</span> <span class="n">cut</span>
