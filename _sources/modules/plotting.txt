@@ -56,7 +56,7 @@ constructor, a universally unique identifier (UUID) will be used instead::
    >>> h.GetTitle()
    ''
 
-This insures that all objects have unique names by default in rootpy and is
+This ensures that all objects have unique names by default in rootpy and is
 particularly helpful if naming isn't important in your application (since you
 don't intend to write the objects in a file, for example). You can, however,
 specify a ``name`` or ``title``::
