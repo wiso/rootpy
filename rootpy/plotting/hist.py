@@ -1384,3 +1384,92 @@ class HistStack(Plottable, Object, QROOT.THStack):
     def yaxis(self):
 
         return self.GetYaxis()
+
+
+def FillHistogram(data, *args, **kwargs):
+    def autobinning(data, recipe):
+        import numpy as np
+        n = float(len(data))
+        m = np.min(data)
+        M = np.max(data)
+        if n < 3:
+            return 1, m, M
+        if recipe == "sturges":
+            k = np.log2(n) + 1
+        # http://books.google.it/books?id=_kRX4LoFfGQC&lpg=PA133&ots=APHb0-p6tY&dq=doane%20binning%20histogram&hl=it&pg=PA133#v=onepage&q=doane%20binning%20histogram&f=false
+        elif recipe == "sturges-doane":  
+            k = np.log10(n) * np.log2(n) + 3
+            # doane modified, see 
+        elif recipe == "doane":
+            from scipy.stats import kurtosis, skew
+            sigma = np.sqrt(6. * (n - 2.) / (n + 1.) / (n + 3.))
+            k = 1 + np.log2(n) + \
+                np.log2(1 + np.abs(skew(data)) / sigma)
+        elif recipe == "scott":
+            sigma = np.std(data)
+            h = 3.49 * sigma * n ** (-1. / 3.)
+            k = (M - m) / h
+        elif recipe == "sqrt":
+            k = np.sqrt(n)
+        elif recipe == "freedman-diaconis":
+            from scipy.stats.mstats import mquantiles
+            q = mquantiles(data, prob=[0.25, 0.75])
+            IQR = q[1] - q[0]
+            h = 2 * IQR / n ** (1. / 3.)
+            k = (M - m) / h
+        elif recipe == "risk":
+            import scipy.optimize as optimize
+
+            def f(data):
+                def fff(x):  # h is spacing
+                    h = x[0]
+                    nbins = (M - m) / h
+                    binning = np.arange(m, M, h)
+                    histo, bincenters = np.histogram(data, binning)
+                    bincenters = 0.5 * (bincenters[1:] + bincenters[:-1])
+                    mean = 1. / nbins * np.sum(histo)
+                    v2 = 1. / nbins * np.sum((histo - mean) ** 2)
+                    return (2 * mean - v2) / h ** 2
+                return fff
+            k0 = autobinning(data, "sqrt")
+            h0 = (M - m) / k0
+            h = optimize.fmin(f(data), np.array([h0]), disp=False)[0]
+            k = (M - m) / h
+        # http://arxiv.org/pdf/physics/0605197v1.pdf
+        elif recipe == "knuth":
+            import scipy.optimize as optimize
+
+            def f(data):
+                from scipy.special import gammaln
+
+                def fff(x):
+                    k = x[0]  # number of bins
+                    if k <= 0:
+                        raise ValueError("cannot converge")
+                    binning = np.linspace(m, M, k + 1)
+                    histo, bincenters = np.histogram(data, binning)
+
+                    return -(n * np.log(k) + gammaln(k / 2.) - gammaln(n + k / 2.) +
+                              k * gammaln(1. / 2.) + np.sum(gammaln(histo + 0.5)))
+                return fff
+
+            k0 = autobinning(data, "sqrt")
+            k = optimize.fmin(f(data), np.array([k0]), disp=False)[0]
+        # http://web.ipac.caltech.edu/staff/fmasci/home/statistics_refs/OptimumHistogram.pdf
+        elif recipe == "wand":
+            raise NotImplementedError
+        else:
+            raise ValueError("binning method %s non valid" % recipe)
+        return int(np.ceil(k)), m, M
+
+    dim = kwargs.pop('dim', 1)
+    if dim != 1:
+        raise NotImplementedError
+    if 'binning' in kwargs:
+        args = autobinning(data, kwargs['binning'])
+        del kwargs['binning']
+        
+    histo = Hist(*args, **kwargs)
+    for d in data:
+        histo.Fill(d)
+    return list(histo.xedgesl()), histo
